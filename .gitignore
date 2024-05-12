@@ -1,0 +1,21 @@
+.DS_Store
+### react ###
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+
+node_modules
+bower_components
+
+*.sublime*
+
+.env
+.env.local
+.env.production
+
+
+psd
+thumb
+sketch
