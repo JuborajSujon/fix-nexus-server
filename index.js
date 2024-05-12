@@ -39,6 +39,14 @@ async function run() {
       const services = await cursor.toArray();
       res.send(services);
     });
+
+    // Save a service data in MongoDB
+    app.post("/services", async (req, res) => {
+      const service = req.body;
+      const result = await servicesCollection.insertOne(service);
+      res.send(result);
+    });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
