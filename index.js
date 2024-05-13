@@ -92,6 +92,14 @@ async function run() {
       res.send(result);
     });
 
+    // Delete a service data by id
+    app.delete("/services/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await servicesCollection.deleteOne(query);
+      res.send(result);
+    });
+
     // Update a service data by id
     app.put("/services/:id", async (req, res) => {
       const id = req.params.id;
