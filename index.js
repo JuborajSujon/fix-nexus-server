@@ -42,6 +42,33 @@ async function run() {
       res.send(services);
     });
 
+    // Get all services data
+    app.get("/services", async (req, res) => {
+      const size = parseInt(req.query.size);
+      const page = parseInt(req.query.page) - 1;
+      const search = req.query.search;
+      let query = {
+        serviceName: { $regex: search, $options: "i" },
+      };
+
+      const services = await servicesCollection
+        .find(query)
+        .skip(page * size)
+        .limit(size)
+        .toArray();
+      res.send(services);
+    });
+
+    // Get all service data count from db
+    app.get("/services-count", async (req, res) => {
+      const search = req.query.search;
+      let query = {
+        serviceName: { $regex: search, $options: "i" },
+      };
+      const count = await servicesCollection.countDocuments(query);
+      res.send({ count });
+    });
+
     // Get a single service data by id
     app.get("/services/:id", async (req, res) => {
       const id = req.params.id;
