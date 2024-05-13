@@ -126,6 +126,14 @@ async function run() {
       res.send(result);
     });
 
+    // Get all booked service data by email
+    app.get("/booked-services/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { userEmail: email };
+      const services = await bookedServicesCollection.find(query).toArray();
+      res.send(services);
+    });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
