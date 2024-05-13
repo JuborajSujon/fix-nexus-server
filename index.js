@@ -134,6 +134,22 @@ async function run() {
       res.send(services);
     });
 
+    // Update a booked service data by id
+    app.patch("/booked-services/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const status = req.body;
+      const updatedService = {
+        $set: status,
+      };
+
+      const result = await bookedServicesCollection.updateOne(
+        filter,
+        updatedService
+      );
+      res.send(result);
+    });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
