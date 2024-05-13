@@ -32,6 +32,9 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const servicesCollection = client.db("fixnexus").collection("services");
+    const bookedServicesCollection = client
+      .db("fixnexus")
+      .collection("bookedServices");
 
     // Get 6 items for home services
     app.get("/home-services", async (req, res) => {
@@ -39,10 +42,25 @@ async function run() {
       res.send(services);
     });
 
+    // Get a single service data by id
+    app.get("/services/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const service = await servicesCollection.findOne(query);
+      res.send(service);
+    });
+
     // Save a service data in MongoDB
     app.post("/services", async (req, res) => {
       const service = req.body;
       const result = await servicesCollection.insertOne(service);
+      res.send(result);
+    });
+
+    // Save a booked service data in MongoDB
+    app.post("/booked-services", async (req, res) => {
+      const bookedService = req.body;
+      const result = await bookedServicesCollection.insertOne(bookedService);
       res.send(result);
     });
 
