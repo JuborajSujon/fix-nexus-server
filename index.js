@@ -54,6 +54,18 @@ async function run() {
         .send({ success: true });
     });
 
+    // clear token on get request
+    app.get("/logout", (req, res) => {
+      res
+        .clearCookie("token", {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+          maxAge: 0,
+        })
+        .send({ success: true });
+    });
+
     // Get 6 items for home services
     app.get("/home-services", async (req, res) => {
       const services = await servicesCollection.find().limit(6).toArray();
