@@ -21,6 +21,25 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
+// Middle Ware JWT Verify
+const verifyToken = (req, res, next) => {
+  const token = req.cookies.token;
+
+  if (!token) {
+    return res.status(401).send({ message: "Unauthorized access" });
+  }
+  if (token) {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, decoded) => {
+      if (err) {
+        console.log(err);
+        return res.status(401).send({ message: "Unauthorized access" });
+      }
+      req.user = decoded;
+      next();
+    });
+  }
+};
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@atlascluster.xgsegjb.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -108,8 +127,13 @@ async function run() {
     });
 
     // Get all managed service data by email
-    app.get("/manage-services/:email", async (req, res) => {
+    app.get("/manage-services/:email", verifyToken, async (req, res) => {
+      const tokenData = req.user;
       const email = req.params.email;
+
+      if (email !== tokenData.email) {
+        return res.status(403).send({ message: "Forbidden access" });
+      }
       const query = { providerEmail: email };
       const services = await servicesCollection.find(query).toArray();
       res.send(services);
@@ -157,8 +181,13 @@ async function run() {
     });
 
     // Get all booked service data by email
-    app.get("/booked-services/:email", async (req, res) => {
+    app.get("/booked-services/:email", verifyToken, async (req, res) => {
+      const tokenData = req.user;
       const email = req.params.email;
+
+      if (email !== tokenData.email) {
+        return res.status(403).send({ message: "Forbidden access" });
+      }
       const query = { userEmail: email };
       const services = await bookedServicesCollection.find(query).toArray();
       res.send(services);
