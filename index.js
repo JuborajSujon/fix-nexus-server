@@ -33,10 +33,9 @@ async function run() {
   try {
     const servicesCollection = client.db("fixnexus").collection("services");
 
-    app.get("/services", async (req, res) => {
-      const query = {};
-      const cursor = servicesCollection.find(query);
-      const services = await cursor.toArray();
+    // Get 6 items for home services
+    app.get("/home-services", async (req, res) => {
+      const services = await servicesCollection.find().limit(6).toArray();
       res.send(services);
     });
 
