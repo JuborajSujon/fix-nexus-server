@@ -77,10 +77,37 @@ async function run() {
       res.send(service);
     });
 
+    // Get all managed service data by email
+    app.get("/manage-services/:email", async (req, res) => {
+      const email = req.params.email;
+      const query = { providerEmail: email };
+      const services = await servicesCollection.find(query).toArray();
+      res.send(services);
+    });
+
     // Save a service data in MongoDB
     app.post("/services", async (req, res) => {
       const service = req.body;
       const result = await servicesCollection.insertOne(service);
+      res.send(result);
+    });
+
+    // Update a service data by id
+    app.put("/services/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const service = req.body;
+      const option = { upsert: true };
+      const updatedService = {
+        $set: {
+          ...service,
+        },
+      };
+      const result = await servicesCollection.updateOne(
+        filter,
+        updatedService,
+        option
+      );
       res.send(result);
     });
 
