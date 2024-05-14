@@ -209,6 +209,14 @@ async function run() {
       res.send(result);
     });
 
+    // Delete a booked service data by id
+    app.delete("/booked-services/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await bookedServicesCollection.deleteOne(query);
+      res.send(result);
+    });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
