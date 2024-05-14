@@ -13,6 +13,7 @@ const corsOptions = {
     "http://localhost:5174",
     "https://fixnexus-aa0eb.web.app",
     "https://fixnexus-aa0eb.firebaseapp.com",
+    "https://fixnexus.netlify.app",
   ],
   credentials: true,
   optionSuccessStatus: 200,
