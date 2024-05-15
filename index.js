@@ -227,7 +227,7 @@ async function run() {
         return res.status(403).send({ message: "Forbidden access" });
       }
       const query = { providerEmail: email };
-      console.log(query);
+      // console.log(query);
       const services = await bookedServicesCollection.find(query).toArray();
       res.send(services);
     });
