@@ -4,7 +4,7 @@
 
 Firebase Hosting : [https://fixnexus-aa0eb.web.app/](https://fixnexus-aa0eb.web.app/)
 
-Netlify Hosting : []()
+Netlify Hosting : [https://fixnexus.netlify.app/](https://fixnexus.netlify.app/)
 
 ## Features and Characteristics:
 
