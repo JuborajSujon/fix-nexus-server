@@ -218,6 +218,20 @@ async function run() {
       res.send(result);
     });
 
+    // Get all to-do service data by email
+    app.get("/services-to-do/:email", verifyToken, async (req, res) => {
+      const tokenData = req.user;
+      const email = req.params.email;
+
+      if (email !== tokenData.email) {
+        return res.status(403).send({ message: "Forbidden access" });
+      }
+      const query = { providerEmail: email };
+      console.log(query);
+      const services = await bookedServicesCollection.find(query).toArray();
+      res.send(services);
+    });
+
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );

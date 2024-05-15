@@ -104,6 +104,10 @@ Delete a specific service from the database
 
 Add a new booked service to the database
 
+- GET /api/booked-services/:email
+
+Get all booked services by user email
+
 - PUT /api/booked-services/:id
 
 Update a specific booked service in the database
@@ -111,6 +115,10 @@ Update a specific booked service in the database
 - DELETE /api/booked-services/:id
 
 Delete a specific booked service from the database
+
+- GET /api/services-to-do/:email
+
+Get all to-do services by user email
 
 ## Conclusion: :rocket:
 
