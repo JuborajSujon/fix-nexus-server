@@ -6,6 +6,8 @@ Firebase Hosting : [https://fixnexus-aa0eb.web.app/](https://fixnexus-aa0eb.web.
 
 Netlify Hosting : [https://fixnexus.netlify.app/](https://fixnexus.netlify.app/)
 
+Fixnexus client side repository : [https://github.com/JuborajSujon/fix-nexus-client.git](https://github.com/JuborajSujon/fix-nexus-client.git)
+
 ## Features and Characteristics:
 
 - Create, Read, Update, and Delete (CRUD) operations
@@ -65,60 +67,6 @@ npm run dev
 ```
 
 The server should now be running on http://localhost:5000
-
-## API Endpoints
-
-- GET /api/home-services
-
-Get 6 services for home from the database
-
-- GET /api/services
-
-Get all services from the database with pagination and search features by service name
-
-- GET /api/services-count
-
-Get all services count from the database base on service name
-
-- GET /api/services/:id
-
-Get a specific service from the database
-
-- GET /api/manage-services/:email
-
-Get all managed services by user email
-
-- POST /api/services
-
-Post a new service to the database
-
-- Put /api/services/:id
-
-Update a specific service in the database
-
-- DELETE /api/services/:id
-
-Delete a specific service from the database
-
-- POST /api/booked-services
-
-Add a new booked service to the database
-
-- GET /api/booked-services/:email
-
-Get all booked services by user email
-
-- PUT /api/booked-services/:id
-
-Update a specific booked service in the database
-
-- DELETE /api/booked-services/:id
-
-Delete a specific booked service from the database
-
-- GET /api/services-to-do/:email
-
-Get all to-do services by user email
 
 ## Conclusion: :rocket:
 
